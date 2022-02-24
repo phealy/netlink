@@ -730,8 +730,8 @@ func (h *Handle) RouteDel(route *Route) error {
 }
 
 func (h *Handle) routeHandle(route *Route, req *nl.NetlinkRequest, msg *nl.RtMsg) error {
-	if (route.Dst == nil || route.Dst.IP == nil) && route.Src == nil && route.Gw == nil && route.MPLSDst == nil {
-		return fmt.Errorf("one of Dst.IP, Src, or Gw must not be nil")
+	if (route.Dst == nil || route.Dst.IP == nil) && len(route.MultiPath) == 0 && route.Src == nil && route.Gw == nil && route.MPLSDst == nil {
+		return fmt.Errorf("one of Dst.IP, MultiPath, Src, or Gw must not be nil")
 	}
 
 	family := -1
