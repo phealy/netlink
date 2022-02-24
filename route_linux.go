@@ -836,9 +836,6 @@ func (h *Handle) routeHandle(route *Route, req *nl.NetlinkRequest, msg *nl.RtMsg
 			children := []nl.NetlinkRequestData{}
 			if nh.Gw != nil {
 				gwFamily := nl.GetIPFamily(nh.Gw)
-				if family != -1 && family != gwFamily {
-					return fmt.Errorf("gateway, source, and destination ip are not the same IP family")
-				}
 				if gwFamily == FAMILY_V4 {
 					children = append(children, nl.NewRtAttr(unix.RTA_GATEWAY, []byte(nh.Gw.To4())))
 				} else {
